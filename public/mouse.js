@@ -1,5 +1,5 @@
 // Get the canvas and context
-const canvas = document.getElementById('myCanvas');
+const canvas = document.getElementById('cnv_element');
 const ctx = canvas.getContext('2d');
 
 // Set canvas size to match window size
@@ -9,6 +9,8 @@ canvas.height = window.innerHeight;
 // Variables
 let x = 0;
 let y = 0;
+let mouseX = 0;
+let mouseY = 0;
 let stepSize = 5.0;
 let letters = "What we were never able to tell our parents.";
 let fontSizeMin = 3;

@@ -155,96 +155,80 @@ document.body.style.overflow = `hidden`
    
 //    draw_frame ()
 
-// let x = 0
-// let y = 0
-// let stepSize = 5.0;
-// let letters =
-//   "What we were never able to tell our parents.";
-// let fontSizeMin = 3;
-// let angleDistortion = 0.0;
-// let counter = 0;
 
-// function setup() {
-//   // use full screen size
-//   createCanvas(windowWidth, windowHeight);
-//   background(255);
-//   smooth();
-//   cursor(CROSS);
-
-//   x = mouseX;
-//   y = mouseY;
-
-//   textAlign(LEFT);
-//   fill(188, 188, 188);
-// }
-
-// function draw() {
-//   if (mouseOver) {
-//     var d = dist(x, y, mouseX, mouseY);
-//     textFont("Courier New");
-//     textSize(fontSizeMin + d / 2);
-//     var newLetter = letters.charAt(counter);
-//     stepSize = textWidth(newLetter);
-
-//     if (d > stepSize) {
-//       var angle = atan2(mouseY - y, mouseX - x);
-
-//       push();
-//       translate(x, y);
-//       rotate(angle + random(angleDistortion));
-//       text(newLetter, 0, 0);
-//       pop();
-
-//       counter++;
-//       if (counter > letters.length - 1) counter = 0;
-
-//       x = x + cos(angle) * stepSize;
-//       y = y + sin(angle) * stepSize;
-//     }
-//   }
-// }
-
-// function mouseOver() {
-//   x = mouseX;
-//   y = mouseY;
-// }
-
-const canvas = document.getElementById('cnv_element');
-canvas.style.zIndex = 1
-canvas.width = canvas.parentNode.scrollWidth
-canvas.height = canvas.width * 9 / 16
-const ctx = canvas.getContext('2d');
+//create a canvas for drawing text interaction
+// const canvas = document.getElementById('cnv_element');
+// canvas.style.zIndex = 1
+// canvas.width = canvas.parentNode.scrollWidth
+// canvas.height = canvas.width * 9 / 16
+// const ctx = canvas.getContext('2d');
 //canvas.style.backgroundColor = 'green'
 
-let mouseX = 0;
-let mouseY = 0;
+//declare mouse coordinate - draw mouse
+// let mouseX = 0;
+// let mouseY = 0;
 
-// Function to draw the text at the current mouse position
-function drawText() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
-    ctx.font = '20px Arial'; // Set the font size and style
-    ctx.fillText(`What we were never able to tell our parents.`, mouseX, mouseY);
-    // ctx.fillStyle = 'green'
-}
+// let x = 100;
+// let y = 100;
 
-// Event listener for mouse movement
-canvas.addEventListener('mousemove', (event) => {
-    mouseX = event.clientX - canvas.getBoundingClientRect().left;
-    mouseY = event.clientY - canvas.getBoundingClientRect().top;
-    drawText();
-});
+// let stepSize = 5
+// let letters = "What we were never able to tell our parents."
+// let fontSizeMin = 20
+// let angleDistortion = Math.PI / 6
+// let counter = 0
+
+
+// // Function to draw the text at the current mouse position
+// function drawText() {
+
+//     // ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
+//     ctx.font =  fontSizeMin + 'px Arial'; // Set the font size and style
+//     // ctx.fillText(letters, mouseX, mouseY);
+//     ctx.fillStyle = 'green'
+//     const d = Math.sqrt(Math.pow(mouseX - x, 2) + Math.pow(mouseY - y, 2));
+//     // fontSizeMin += d / 2
+//     ctx.textBaseline = "middle";
+//     ctx.textAlign = "center";
+//     const newLetter = letters.charAt(counter);
+//     stepSize = ctx.measureText(newLetter).width;
+
+//     if (d > stepSize) {
+//         const angle = Math.atan2(mouseY - y, mouseX - x);
+        
+//         ctx.save();
+//         ctx.translate(x, y);
+//         ctx.rotate(angle + Math.random() * angleDistortion * 2 - angleDistortion); // Random distortion
+//         ctx.fillText(newLetter, 0, 0);
+//         ctx.restore();
+
+//         counter++;
+//         if (counter >= letters.length) counter = 0;
+
+//         x += Math.cos(angle) * stepSize;
+//         y += Math.sin(angle) * stepSize;
+//     }
+// }
+
+// // Event listener for mouse movement
+// canvas.addEventListener('mousemove', (event) => {
+//     mouseX = event.clientX - canvas.getBoundingClientRect().left;
+//     mouseY = event.clientY - canvas.getBoundingClientRect().top;
+//     // drawText();
+// });
+
+
+
 
 //heavily inspired by https://codepen.io/boytchev/pen/QWzjOMx?editors=1010 
 
 import * as THREE from '/three.module.js';
 import { OrbitControls } from "/OrbitControls.js";
 
-// general setup, boring, skip to the next comment
 
 console.clear( );
 //Create a scene
 var scene = new THREE.Scene();
-scene.background = new THREE.Color( 0xff0000 );
+scene.background = new THREE.Color( 0x0f063b );
 // scene.style.zIndex = -1
 // renderer.setClearColor( 0xffffff, 0 );
 
@@ -267,12 +251,14 @@ var renderer = new THREE.WebGLRenderer( {antialias: true} );
     // Add OrbitControls
 var controls = new OrbitControls(camera, renderer.domElement);
 
+
+
 // Animation loop
 function animate() {
     requestAnimationFrame(animate);
     controls.update(); // Update OrbitControls
     renderer.render(scene, camera);
-    drawText();
+    // drawText();
 }
 animate();
 
@@ -320,7 +306,7 @@ scene.add( ...lines );
 
 function path( buf, t, i, rnd )
 {
-		t += 40*rnd;
+		t += 20*rnd;
 	
 		var x = (0.1+3*rnd)*Math.sin(t+13*rnd) + 2*rnd*Math.cos(3.2*t+3);
 		var y = (3-3*rnd)*Math.cos(t) + 2*rnd*Math.cos(4.5*t-7*rnd);
@@ -336,7 +322,7 @@ function animationLoop( t )
 		{
 				for( var i=0; i<N; i++ )
                 //based on the current time t and the loop index i. 
-					path( line.pos, t/2000-i/50+10, i, line.rnd );
+					path( line.pos, t/3000-i/60+10, i, line.rnd );
 			
 				line.pos.needsUpdate = true;
 		}
@@ -344,82 +330,10 @@ function animationLoop( t )
     renderer.render( scene, camera );
 }
 
+
+
 //    window.onresize = () => {
 //       cnv_0.width = innerWidth
 //       cnv_0.height = innerHeight   
 //    }
 
-// // Set up the canvas
-// var canvas = document.createElement('canvas');
-// canvas.width = window.innerWidth;
-// canvas.height = window.innerHeight;
-// document.body.appendChild(canvas);
-// var ctx = canvas.getContext('2d')
-
-// //Drawing mouse
-// var x = 0,
-//   y = 0;
-// var stepSize = 5.0;
-// var letters =
-//   "What we were never able to tell our parents.";
-// var fontSizeMin = 3;
-// var angleDistortion = 0.0;
-// var counter = 0;
-// // Mouse event handlers
-// canvas.addEventListener('mousemove', function(event) {
-//   x = event.clientX;
-//   y = event.clientY;
-// });
-
-// // Draw function
-// function draw() {
-//   ctx.clearRect(0, 0, canvas.width, canvas.height);
-//   ctx.font = fontSizeMin + "px Courier New";
-//   ctx.fillStyle = "rgba(188, 188, 188, 1)";
-//   ctx.textAlign = "left";
-//   ctx.fillText(letters.charAt(counter), x, y);
-//   counter++;
-//   if (counter > letters.length - 1) counter = 0;
-// }
-
-// function draw() {
-//   if (mouseOver) {
-//     var d = dist(x, y, mouseX, mouseY);
-//     textFont("Courier New");
-//     textSize(fontSizeMin + d / 2);
-//     var newLetter = letters.charAt(counter);
-//     stepSize = textWidth(newLetter);
-
-//     if (d > stepSize) {
-//       var angle = atan2(mouseY - y, mouseX - x);
-
-//       push();
-//       translate(x, y);
-//       rotate(angle + random(angleDistortion));
-//       text(newLetter, 0, 0);
-//       pop();
-
-//       counter++;
-//       if (counter > letters.length - 1) counter = 0;
-
-//       x = x + cos(angle) * stepSize;
-//       y = y + sin(angle) * stepSize;
-//     }
-//   }
-// }
-
-// function mouseOver() {
-//   x = mouseX;
-//   y = mouseY;
-// }
-
-// function keyTyped() {
-//   if (key == "s" || key == "S") save("P_2_3_3_01.png");
-// }
-
-// function keyPressed() {
-//   // angleDistortion ctrls arrowkeys up/down
-//   if (keyCode == DELETE || keyCode == BACKSPACE) background(255);
-//   if (keyCode == UP_ARROW) angleDistortion += 0.1;
-//   if (keyCode == DOWN_ARROW) angleDistortion -= 0.1;
-// }
