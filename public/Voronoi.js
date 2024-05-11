@@ -279,7 +279,6 @@ renderer.draw(() => {
     }
 });
 
-window.addEventListener('resize', resize);
 function resize() {
     let parent = renderer.canvas.parentElement;
     renderer.size(parent.clientWidth, parent.clientWidth / 16 * 9);
