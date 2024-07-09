@@ -10,7 +10,7 @@ cnv_0.height = cnv_0.width * 9 / 16
 // Arrange layers
 cnv_0.style.zIndex = 2
 cnv_0.style.backgroundColor = 'transparent'
-cnv_0.style.position = 'absolute'
+// cnv_0.style.position = 'absolute'
 
 // get and suspend audio context
 const audio_context = new AudioContext ()
